@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science Simulations</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8"> <!-- Specifies the character encoding -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the page responsive on mobile -->
+  <title>Pseudo-3D Periodic Table</title> <!-- Title shown in the browser tab -->
+  <link rel="stylesheet" href="styles.css"> <!-- Links to our CSS file -->
 </head>
 <body>
-    <header>
-        <h1>Welcome to Science Simulations</h1>
-    </header>
-    <main>
-        <p>Explore interactive science simulations!</p>
-    </main>
-    <footer>
-        <p>&copy; 2025 Science Simulations</p>
-    </footer>
+  <!-- Dropdown menu for selecting color property -->
+  <select id="color-dropdown">
+    <option value="Electronegativity">Electronegativity</option>
+    <option value="AtomicRadius">Atomic Radius</option>
+    <!-- Add more properties as needed -->
+  </select>
+
+  <!-- This container will hold the periodic table -->
+  <div id="table-container"></div>
+
+  <!-- Input field to upload a CSV file -->
+  <input type="file" id="csv-input" accept=".csv" />
+
+  <!-- Include the PapaParse library to read CSV files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
+
+  <!-- Link to the JavaScript file for functionality -->
+  <script src="script.js"></script>
 </body>
 </html>
