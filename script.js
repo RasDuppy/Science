@@ -1,81 +1,83 @@
-// Attach an event listener to the file input to handle file uploads
-document.getElementById('csv-input').addEventListener('change', (event) => {
-    const file = event.target.files[0]; // Get the selected file
-    if (file) {
-      // Use PapaParse to read the CSV file
-      Papa.parse(file, {
-        header: true, // Treat the first row as column headers
-        dynamicTyping: true, // Convert numeric values to numbers automatically
-        complete: function (results) {
-          populateTable(results.data); // Pass the parsed data to the populateTable function
-        },
-      });
+// Automatically load the CSV file on page load
+document.addEventListener("DOMContentLoaded", () => {
+  // Load the CSV file using PapaParse
+  Papa.parse("elements.csv", {
+    download: true, // Fetch the file from the server
+    header: true, // Use the first row as headers
+    dynamicTyping: true, // Automatically convert numbers
+    complete: function (results) {
+      const elements = results.data; // Parsed CSV data
+      populateTable(elements); // Display the table
+      setupColorCoding(elements); // Enable color coding
+    },
+  });
+});
+
+/**
+ * Populate the periodic table dynamically based on CSV data.
+ * @param {Array} elements - Array of element objects from the CSV file.
+ */
+function populateTable(elements) {
+  const container = document.getElementById("table-container");
+  container.innerHTML = ""; // Clear existing content
+
+  // Loop through each element and create a block
+  elements.forEach((element) => {
+    const cell = document.createElement("div");
+    cell.classList.add("element");
+
+    // Add content to the element block
+    cell.innerHTML = `
+      <div class="atomic-number">${element.AtomicNumber}</div>
+      <div class="symbol">${element.Symbol}</div>
+      <div class="name">${element.Name}</div>
+    `;
+
+    // Position the block in the grid using Group and Period
+    const gridColumn = element.Group || 1; // Default column
+    const gridRow = element.Period || 1; // Default row
+    cell.style.gridColumn = gridColumn;
+    cell.style.gridRow = gridRow;
+
+    container.appendChild(cell); // Add to the container
+  });
+}
+
+/**
+ * Setup the dropdown menu for color coding.
+ * @param {Array} elements - Array of element objects from the CSV file.
+ */
+function setupColorCoding(elements) {
+  const dropdown = document.getElementById("property-select");
+
+  // Listen for changes in the dropdown
+  dropdown.addEventListener("change", (event) => {
+    const property = event.target.value; // Selected property
+    applyColorCoding(elements, property);
+  });
+}
+
+/**
+ * Apply color coding based on the selected property.
+ * @param {Array} elements - Array of element objects from the CSV file.
+ * @param {string} property - Property to use for color coding.
+ */
+function applyColorCoding(elements, property) {
+  const container = document.getElementById("table-container");
+  const blocks = container.children;
+
+  // Normalize the property values for coloring
+  const values = elements.map((el) => parseFloat(el[property])).filter((v) => !isNaN(v));
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+
+  // Map each block's color based on its property value
+  Array.from(blocks).forEach((block, index) => {
+    const value = parseFloat(elements[index][property]);
+    if (!isNaN(value)) {
+      const ratio = (value - min) / (max - min); // Scale to [0, 1]
+      const color = `rgb(${Math.floor(255 * (1 - ratio))}, ${Math.floor(255 * ratio)}, 150)`; // Gradient from red to green
+      block.style.background = color; // Apply color
     }
   });
-  
-  // Function to generate the periodic table dynamically
-  function populateTable(elements) {
-    const container = document.getElementById('table-container'); // Get the container
-    container.innerHTML = ''; // Clear any existing content
-  
-    // Get the selected color property from the dropdown
-    const colorProperty = document.getElementById('color-dropdown').value;
-  
-    // Loop through each element in the data
-    elements.forEach((element) => {
-      const cell = document.createElement('div'); // Create a new div for each element
-      cell.classList.add('element'); // Add the "element" class for styling
-  
-      // Add content to the element block
-      cell.innerHTML = `
-        <div class="atomic-number">${element['Atomic Number']}</div> <!-- Atomic number -->
-        <div class="symbol">${element.Symbol}</div> <!-- Chemical symbol -->
-        <div class="name">${element.Name}</div> <!-- Element name -->
-      `;
-  
-      // Position the block based on the group (column) and period (row)
-      const gridColumn = element.Group || 1; // Default to 1 if no group is provided
-      const gridRow = element.Period || 1; // Default to 1 if no period is provided
-      cell.style.gridColumn = gridColumn; // Set the column in the grid
-      cell.style.gridRow = gridRow; // Set the row in the grid
-  
-      // Dynamically set the background color based on the selected property
-      const colorValue = element[colorProperty];
-      const color = getColorForProperty(colorValue);
-      cell.style.backgroundColor = color; // Set the color for the element
-  
-      container.appendChild(cell); // Add the block to the container
-    });
-  }
-  
-  // Function to get a color based on the value of the selected property
-  function getColorForProperty(value) {
-    if (value === undefined || value === null) {
-      return "#ddd"; // Default color for undefined or null values
-    }
-  
-    // Example: Normalize and map the value to a color range
-    if (typeof value === "number") {
-      const hue = (value * 10) % 360; // Create a hue based on the value
-      return `hsl(${hue}, 100%, 60%)`; // Return a color based on hue
-    }
-  
-    // Default color if it's not a number
-    return "#ccc";
-  }
-  
-  // Attach an event listener to the dropdown to re-render the table when the property is changed
-  document.getElementById('color-dropdown').addEventListener('change', () => {
-    const fileInput = document.getElementById('csv-input');
-    if (fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      Papa.parse(file, {
-        header: true,
-        dynamicTyping: true,
-        complete: function (results) {
-          populateTable(results.data); // Re-render with the updated color property
-        },
-      });
-    }
-  });
-  
+}
