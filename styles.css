@@ -1,55 +1,59 @@
-/* Style the whole page with a background and center everything */
+/* Basic styling for the page */
 body {
-    font-family: Arial, sans-serif; /* Default font */
-    margin: 0; /* Remove default margin */
-    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364); /* Gradient background */
-    color: white; /* White text */
-    display: flex; /* Flexbox layout for centering */
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
-    min-height: 100vh; /* Full screen height */
-  }
-  
-  /* This container will hold all the periodic table elements */
-  #table-container {
-    display: grid; /* Use a grid layout */
-    grid-template-columns: repeat(18, 1fr); /* 18 equal-width columns */
-    gap: 5px; /* Space between grid items */
-    perspective: 1000px; /* Enable 3D perspective for the hover effect */
-  }
-  
-  /* Style for each element block */
-  .element {
-    width: 60px; /* Width of each element block */
-    height: 80px; /* Height of each element block */
-    display: flex; /* Flexbox to center content */
-    flex-direction: column; /* Stack content vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Border around the block */
-    border-radius: 10px; /* Rounded corners */
-    background: linear-gradient(135deg, #283048, #859398); /* Gradient background for pseudo-3D effect */
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-    transform: rotateX(5deg) rotateY(5deg); /* Slight 3D tilt */
-    transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effects */
-    cursor: pointer; /* Change cursor to pointer on hover */
-  }
-  
-  /* Highlight the block on hover */
-  .element:hover {
-    transform: rotateX(0deg) rotateY(0deg) scale(1.1); /* Bring block forward */
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7); /* Stronger shadow for focus */
-  }
-  
-  /* Styling for the element symbol */
-  .element .symbol {
-    font-size: 1.2em; /* Bigger text for the symbol */
-    font-weight: bold; /* Bold text */
-  }
-  
-  /* Styling for the atomic number */
-  .element .atomic-number {
-    font-size: 0.8em; /* Smaller text for the number */
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Styling for the dropdown menu */
+#property-select {
+  margin: 20px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Grid layout for the periodic table */
+#table-container {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr); /* 18 columns for the table layout */
+  gap: 5px; /* Spacing between elements */
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Styling for each element block */
+.element {
+  width: 60px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #283048, #859398);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+/* Text styling within the element blocks */
+.element .atomic-number {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.element .symbol {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.element .name {
+  font-size: 0.8rem;
+}
