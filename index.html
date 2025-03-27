@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"> <!-- Specifies the character encoding -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the page responsive on mobile -->
-  <title>Pseudo-3D Periodic Table</title> <!-- Title shown in the browser tab -->
-  <link rel="stylesheet" href="styles.css"> <!-- Links to our CSS file -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Periodic Table</title>
+  <!-- Link to the CSS file -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Dropdown menu for selecting color property -->
-  <select id="color-dropdown">
+  <!-- Dropdown menu to select properties for color-coding -->
+  <select id="property-select">
     <option value="Electronegativity">Electronegativity</option>
-    <option value="AtomicRadius">Atomic Radius</option>
-    <!-- Add more properties as needed -->
+    <option value="AtomicWeight">Atomic Weight</option>
+    <!-- Add more properties here as needed -->
   </select>
 
-  <!-- This container will hold the periodic table -->
+  <!-- Container for the periodic table -->
   <div id="table-container"></div>
 
-  <!-- Input field to upload a CSV file -->
-  <input type="file" id="csv-input" accept=".csv" />
-
-  <!-- Include the PapaParse library to read CSV files -->
+  <!-- Include PapaParse for CSV parsing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
-
-  <!-- Link to the JavaScript file for functionality -->
+  <!-- Link to the JavaScript file -->
   <script src="script.js"></script>
 </body>
 </html>
