@@ -1,8 +1,7 @@
-/* Basic styling for the page */
+/* Style the whole page with a background and center everything */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
   background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
   color: white;
   display: flex;
@@ -12,25 +11,52 @@ body {
   min-height: 100vh;
 }
 
-/* Styling for the dropdown menu */
-#property-select {
-  margin: 20px;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
 }
 
-/* Grid layout for the periodic table */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Periodic table container */
 #table-container {
   display: grid;
-  grid-template-columns: repeat(18, 1fr); /* 18 columns for the table layout */
-  gap: 5px; /* Spacing between elements */
-  max-width: 1000px;
-  margin: auto;
+  grid-template-columns: repeat(18, 1fr);
+  gap: 5px;
+  perspective: 1000px;
 }
 
-/* Styling for each element block */
+/* Element Style */
 .element {
   width: 60px;
   height: 80px;
@@ -42,18 +68,22 @@ body {
   border-radius: 10px;
   background: linear-gradient(135deg, #283048, #859398);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  transform: rotateX(5deg) rotateY(5deg);
+  transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 }
 
-/* Text styling within the element blocks */
-.element .atomic-number {
-  font-size: 0.8rem;
-  font-weight: bold;
+.element:hover {
+  transform: rotateX(0deg) rotateY(0deg) scale(1.1);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
 }
-.element .symbol {
-  font-size: 1.5rem;
-  font-weight: bold;
+
+/* Orbital visualization */
+#orbital-visualization {
+  text-align: center;
+  margin-top: 20px;
 }
-.element .name {
-  font-size: 0.8rem;
+#orbital-visualization img {
+  width: 100%;
+  height: auto;
 }

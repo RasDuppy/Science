@@ -3,24 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Periodic Table</title>
-  <!-- Link to the CSS file -->
+  <title>Pseudo-3D Periodic Table</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Dropdown menu to select properties for color-coding -->
-  <select id="property-select">
-    <option value="Electronegativity">Electronegativity</option>
-    <option value="AtomicWeight">Atomic Weight</option>
-    <!-- Add more properties here as needed -->
-  </select>
-
-  <!-- Container for the periodic table -->
+  <!-- This container will hold the periodic table -->
   <div id="table-container"></div>
 
-  <!-- Include PapaParse for CSV parsing -->
+  <!-- Modal for displaying element information -->
+  <div id="element-info-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal" class="close">&times;</span>
+      <h2 id="element-name"></h2>
+      <p><strong>Atomic Number:</strong> <span id="atomic-number"></span></p>
+      <p><strong>Symbol:</strong> <span id="symbol"></span></p>
+      <p><strong>Atomic Weight:</strong> <span id="atomic-weight"></span></p>
+      <p><strong>Electronegativity:</strong> <span id="electronegativity"></span></p>
+      <h3>Electron Orbitals</h3>
+      <!-- Placeholder for orbital visualization -->
+      <div id="orbital-visualization">
+        <img src="orbital-placeholder.png" alt="Electron Orbitals" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Input field to upload a CSV file -->
+  <input type="file" id="csv-input" accept=".csv" />
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
-  <!-- Link to the JavaScript file -->
   <script src="script.js"></script>
 </body>
 </html>
